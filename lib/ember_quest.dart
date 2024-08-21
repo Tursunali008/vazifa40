@@ -35,7 +35,7 @@ class EmberQuestGame extends FlameGame
   }
 
   void initializeGame(bool loadHud) {
-    // Assume that size.x < 3200
+    // Ekran segmentlarini yuklash
     final segmentsToLoad = (size.x / 320).ceil();
     segmentsToLoad.clamp(0, segments.length);
 
@@ -43,6 +43,7 @@ class EmberQuestGame extends FlameGame
       loadGameSegments(i, (320 * i).toDouble());
     }
 
+    // O'yinchini boshlang'ich pozitsiyaga qo'shish
     _ember = EmberPlayer(
       position: Vector2(64, canvasSize.y - 128),
     );
@@ -53,7 +54,26 @@ class EmberQuestGame extends FlameGame
   }
 
   void loadGameSegments(int segmentIndex, double xPositionOffset) {
+    int lastGroundBlockX = -4; // Initialize with an out-of-bounds value
+
     for (final block in segments[segmentIndex]) {
+      if (block.blockType is GroundBlock) {
+        final gridX = block.gridPosition.x.toInt();
+        if (gridX - lastGroundBlockX > 3) {
+          // Fill the gap if it's greater than 3 units
+          for (int i = lastGroundBlockX + 1; i < gridX; i++) {
+            world.add(
+              GroundBlock(
+                gridPosition: Vector2(i.toDouble(), block.gridPosition.y),
+                xOffset: xPositionOffset,
+              ),
+            );
+          }
+        }
+        lastGroundBlockX = gridX;
+      }
+
+      // Now, proceed with adding the block as usual
       switch (block.blockType) {
         case const (GroundBlock):
           world.add(
@@ -62,11 +82,15 @@ class EmberQuestGame extends FlameGame
               xOffset: xPositionOffset,
             ),
           );
+          break;
         case const (PlatformBlock):
-          add(PlatformBlock(
-            gridPosition: block.gridPosition,
-            xOffset: xPositionOffset,
-          ));
+          add(
+            PlatformBlock(
+              gridPosition: block.gridPosition,
+              xOffset: xPositionOffset,
+            ),
+          );
+          break;
         case const (Star):
           world.add(
             Star(
@@ -74,6 +98,7 @@ class EmberQuestGame extends FlameGame
               xOffset: xPositionOffset,
             ),
           );
+          break;
         case const (WaterEnemy):
           world.add(
             WaterEnemy(
@@ -81,17 +106,20 @@ class EmberQuestGame extends FlameGame
               xOffset: xPositionOffset,
             ),
           );
+          break;
       }
     }
   }
 
   void reset() {
+    // O'yinni qayta boshlash uchun reset funksiyasi
     starsCollected = 0;
     health = 3;
     initializeGame(false);
   }
 
   void movePlayer(Direction direction) {
+    // O'yinchini harakatlantirish uchun funksiyalar
     switch (direction) {
       case Direction.left:
         _ember.horizontalDirection = -1;
@@ -99,24 +127,30 @@ class EmberQuestGame extends FlameGame
       case Direction.right:
         _ember.horizontalDirection = 1;
         break;
+      case Direction.none:
+        break;
     }
   }
 
   void jumpPlayer() {
+    // O'yinchini sakratish funksiyasi
     _ember.hasJumped = true;
   }
 
   void stopPlayer() {
+    // O'yinchini to'xtatish funksiyasi
     _ember.horizontalDirection = 0;
   }
 
   @override
   Color backgroundColor() {
+    // O'yin fon rangi
     return const Color.fromARGB(255, 173, 223, 247);
   }
 
   @override
   void update(double dt) {
+    // Har bir yangilanishda o'yinni yangilash
     if (health <= 0) {
       overlays.add('GameOver');
     }
