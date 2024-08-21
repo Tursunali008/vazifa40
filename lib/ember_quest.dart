@@ -93,7 +93,7 @@ class EmberQuestGame extends FlameGame
 
   @override
   Color backgroundColor() {
-    return const Color.fromARGB(255, 174, 177, 179);
+    return const Color.fromARGB(255, 173, 223, 247);
   }
 
   @override

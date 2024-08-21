@@ -15,12 +15,12 @@ class EmberPlayer extends SpriteAnimationComponent
 
   int horizontalDirection = 0;
   final Vector2 velocity = Vector2.zero();
-  final double moveSpeed = 160;
+  final double moveSpeed = 200;
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
   final double gravity = 15;
-  final double jumpSpeed = 530;
-  final double terminalVelocity = 170;
+  final double jumpSpeed = 600;
+  final double terminalVelocity = 150;
 
   bool hasJumped = false;
   bool hitByEnemy = false;
