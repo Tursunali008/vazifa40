@@ -1,7 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/services.dart';
+import 'package:vazifa40/overlays/game_controls.dart';
 import '../ember_quest.dart';
 import '../objects/objects.dart';
 import 'actors.dart';
@@ -17,6 +19,7 @@ class EmberPlayer extends SpriteAnimationComponent
   final double moveSpeed = 200;
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
+  Direction direction = Direction.right;
   final double gravity = 30;
   final double jumpSpeed = 600;
   final double terminalVelocity = 150;
@@ -50,6 +53,10 @@ class EmberPlayer extends SpriteAnimationComponent
         : 0;
 
     hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
+
+    if (keysPressed.contains(LogicalKeyboardKey.enter)) {
+      game.fireWeapon();
+    }
 
     return true;
   }
@@ -109,14 +116,17 @@ class EmberPlayer extends SpriteAnimationComponent
     velocity.x = horizontalDirection * moveSpeed;
 
     if (horizontalDirection < 0 && scale.x > 0) {
+      direction = Direction.left;
       flipHorizontally();
     } else if (horizontalDirection > 0 && scale.x < 0) {
+      direction = Direction.right;
       flipHorizontally();
     }
 
     velocity.y += gravity;
 
     if (hasJumped) {
+      FlameAudio.play('jump.mp3');
       if (isOnGround) {
         velocity.y = -jumpSpeed;
         isOnGround = false;
