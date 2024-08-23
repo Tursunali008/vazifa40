@@ -6,32 +6,29 @@ import '../ember_quest.dart';
 import '../objects/objects.dart';
 import 'actors.dart';
 
-class WaterEnemy extends Enemy
+class WaterBigEnemy extends Enemy
     with CollisionCallbacks, HasGameReference<EmberQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
   @override
-  int health = 5;
+  int health = 30;
   @override
-  int maxHealth = 5;
+  int maxHealth = 30;
 
   final Vector2 velocity = Vector2.zero();
 
-  WaterEnemy({
+  WaterBigEnemy({
     required this.gridPosition,
     required this.xOffset,
-  }) : super(
-          size: Vector2.all(32),
-          anchor: Anchor.bottomLeft,
-        );
+  }) : super(size: Vector2(64, 71), anchor: Anchor.bottomLeft);
 
   @override
   void onLoad() {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('water_enemy.png'),
+      game.images.fromCache('water_big_enemy.png'),
       SpriteAnimationData.sequenced(
-        amount: 2,
-        textureSize: Vector2.all(16),
+        amount: 1,
+        textureSize: Vector2(64, 71),
         stepTime: 0.70,
       ),
     );

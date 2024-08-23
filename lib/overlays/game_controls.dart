@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:vazifa40/ember_quest.dart';
 
 import 'joystick.dart';
@@ -23,13 +22,13 @@ class GameControls extends StatelessWidget {
             onDirectionChanged: (direction) {
               switch (direction) {
                 case Direction.left:
-                  game.movePlayer(Direction.left);
+                  game.ember.movePlayer(Direction.left);
                   break;
                 case Direction.right:
-                  game.movePlayer(Direction.right);
+                  game.ember.movePlayer(Direction.right);
                   break;
                 case Direction.none:
-                  game.stopPlayer();
+                  game.ember.stopPlayer();
                   break;
               }
             },
@@ -41,7 +40,7 @@ class GameControls extends StatelessWidget {
           right: 100,
           child: ElevatedButton(
             onPressed: () {
-              game.fireWeapon();
+              game.ember.fireWeapon();
             },
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
@@ -56,7 +55,7 @@ class GameControls extends StatelessWidget {
           bottom: 50,
           right: 20,
           child: ElevatedButton(
-            onPressed: () => game.jumpPlayer(),
+            onPressed: () => game.ember.jumpPlayer(),
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
               padding: const EdgeInsets.all(30),
