@@ -10,29 +10,35 @@ class NextLevelOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.8),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Congratulations!',
-              style: TextStyle(fontSize: 24, color: Colors.white),
+            Text(
+              'Congratulations!'.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
               'You cleared the level!',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                game.startNextLevel();
                 game.overlays.remove('NextLevel');
+                game.overlays.add('LevelDetails');
               },
               child: const Text('Start Next Level'),
             ),

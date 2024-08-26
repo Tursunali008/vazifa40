@@ -1,8 +1,9 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vazifa40/ember_quest.dart';
-import 'package:vazifa40/overlays/next_level.dart';
+import 'package:pixelbek/ember_quest.dart';
+import 'package:pixelbek/overlays/level_details.dart';
+import 'package:pixelbek/overlays/next_level.dart';
 
 import 'overlays/overlays.dart';
 
@@ -23,6 +24,7 @@ void main() {
         'GameOver': (context, game) => GameOver(game: game),
         'GameControls': (context, game) => GameControls(game: game),
         'NextLevel': (context, game) => NextLevelOverlay(game: game),
+        'LevelDetails': (context, game) => LevelDetailsOverlay(game: game),
       },
       initialActiveOverlays: const ['MainMenu', 'GameControls'],
     ),

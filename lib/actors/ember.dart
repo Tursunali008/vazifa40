@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/services.dart';
-import 'package:vazifa40/overlays/game_controls.dart';
+import 'package:pixelbek/overlays/overlays.dart';
 import '../ember_quest.dart';
 import '../objects/objects.dart';
 import 'actors.dart';
@@ -88,7 +88,7 @@ class EmberPlayer extends SpriteAnimationComponent
       game.starsCollected++;
     }
 
-    if (other is WaterEnemy || other is WaterBigEnemy) {
+    if (other is WaterEnemy) {
       hit();
     }
 

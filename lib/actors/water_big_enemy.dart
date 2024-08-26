@@ -1,6 +1,5 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 
 import '../ember_quest.dart';
 import '../objects/objects.dart';
@@ -38,16 +37,6 @@ class WaterBigEnemy extends Enemy
     );
     add(RectangleHitbox(collisionType: CollisionType.passive));
     add(CircleHitbox());
-    add(
-      MoveEffect.by(
-        Vector2(-2 * size.x, 0),
-        EffectController(
-          duration: 3,
-          alternate: true,
-          infinite: true,
-        ),
-      ),
-    );
   }
 
   @override
